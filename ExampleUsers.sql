@@ -19,6 +19,8 @@ CREATE TABLE users(
 	lastname1 VARCHAR(250) NOT NULL,
 	lastname2 VARCHAR(250) NOT NULL,
 	pass VARCHAR(250) NOT NULL,
+
+	-- KEYS
 	PRIMARY KEY( idUser )
 ) ENGINE = InnoDB;
 
@@ -30,6 +32,8 @@ CREATE TABLE passwords(
 	idPassword BIGINT NOT NULL AUTO_INCREMENT,
 	idUser BIGINT NOT NULL,
 	password VARCHAR(250) NOT NULL,
+
+	-- KEYS
 	PRIMARY KEY( idPassword ),
 	FOREIGN KEY( idUser ) REFERENCES users( idUser )
 		ON DELETE CASCADE ON UPDATE CASCADE
@@ -44,6 +48,8 @@ CREATE TABLE orders(
 	date TIMESTAMP NOT NULL,
 	status BOOLEAN NOT NULL DEFAULT 0,
 	idUser BIGINT NOT NULL,
+
+	-- KEYS
 	PRIMARY KEY( idOrder ),
 	FOREIGN KEY( idUser ) REFERENCES users( idUser )
 		ON DELETE CASCADE ON UPDATE CASCADE
@@ -58,6 +64,8 @@ CREATE TABLE products(
 	name VARCHAR(250) NOT NULL,
 	price DOUBLE NOT NULL,
 	stock INT NOT NULL,
+
+	-- KEYS
 	PRIMARY KEY( idProduct )
 ) ENGINE = InnoDB;
 
@@ -69,6 +77,9 @@ CREATE TABLE orders_products (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	idOrder BIGINT NOT NULL,
 	idProduct BIGINT NOT NULL,
+	quantity INT NOT NULL,
+
+	-- KEYS
 	PRIMARY KEY( id ),
 	FOREIGN KEY( idOrder ) REFERENCES orders( idOrder )
 		ON DELETE CASCADE ON UPDATE CASCADE,
@@ -136,14 +147,17 @@ INSERT INTO products(name, price, stock) VALUES
 -- -----------------------------------------------------
 -- INSERT ORDERS_PRODUCTS
 -- -----------------------------------------------------
-INSERT INTO orders_products(idOrder, idProduct) VALUES
-	(1, 1),
-	(1, 2),
-	(1, 3),
-	(2, 5),
-	(2, 7),
-	(3, 1),
-	(5, 9);
+INSERT INTO orders_products(idOrder, idProduct, quantity) VALUES
+	(1, 1, 1),
+	(1, 2, 3),
+	(1, 3, 1),
+	(2, 5, 4),
+	(2, 7, 2),
+	(3, 1, 1),
+	(4, 1, 1),
+	(6, 4, 2),
+	(7, 1, 1),
+	(5, 9, 2);
 
 
 -- -----------------------------------------------------
